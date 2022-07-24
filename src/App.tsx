@@ -1,30 +1,26 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { OAuthCallback } from "./OAuthCallback";
 import { Authenticate } from "./Authenticate";
 import { useAtomValue } from "jotai";
 import { tokenAtom } from "./tools/token";
 import { AuthenticatedRoute } from "./tools/AuthenticatedRoute";
-import * as YNAB from "ynab";
-import { useQuery } from "@tanstack/react-query";
+import { useApi } from "./api/Api";
 
 function Home() {
+  const api = useApi();
   const token = useAtomValue(tokenAtom);
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
 
-  const { data, isFetching } = useQuery(["budget"], async () => {
-    return await fetch(
-      `https://api.youneedabudget.com/v1/budgets/${
-        import.meta.env.VITE_BUDGET_ID
-      }`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  });
+  const { data, isFetching } = api.useGetBudgetByIdQuery(
+    import.meta.env.VITE_BUDGET_ID
+  );
 
-  return !isFetching && <div>BudgetName: {JSON.stringify(data)}</div>;
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
+  return <div>BudgetName: {data!.name}</div>;
 }
 
 function App() {
