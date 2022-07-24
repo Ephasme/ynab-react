@@ -8,6 +8,7 @@ specifiers:
   '@types/react': ^18.0.15
   '@types/react-dom': ^18.0.6
   '@vitejs/plugin-react': ^2.0.0
+  date-fns: ^2.29.1
   jotai: ^1.7.6
   react: ^18.2.0
   react-dom: ^18.2.0
@@ -22,6 +23,7 @@ dependencies:
   '@emotion/styled': 11.9.3_t4da3hocwt6ljcf3o6em4qwqzm
   '@mui/material': 5.9.1_bl6qrq6463ovzmqn4cmwv7vydq
   '@tanstack/react-query': 4.0.10_biqbaboplfbrettd7655fr4n2y
+  date-fns: 2.29.1
   jotai: 1.7.6_react@18.2.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -772,6 +774,11 @@ packages:
 
   /csstype/3.1.0:
     resolution: {integrity: sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==}
+
+  /date-fns/2.29.1:
+    resolution: {integrity: sha512-dlLD5rKaKxpFdnjrs+5azHDFOPEu4ANy/LTh04A1DTzMM7qoajmKCBc8pkKRFT41CNzw+4gQh79X5C+Jq27HAw==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
