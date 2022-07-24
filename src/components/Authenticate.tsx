@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { buildUrl } from "./tools/buildUrl";
+import { buildUrl } from "../tools/buildUrl";
 
 export function Authenticate() {
   function handleLogin() {

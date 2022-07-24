@@ -1,38 +1,9 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { OAuthCallback } from "./OAuthCallback";
-import { Authenticate } from "./Authenticate";
-import { useAtomValue } from "jotai";
-import { tokenAtom } from "./tools/token";
-import { AuthenticatedRoute } from "./tools/AuthenticatedRoute";
-import { useApi } from "./api/Api";
-import { Box } from "@mui/material";
-import { format, fromUnixTime, getMonth, getYear, parse } from "date-fns";
-
-function Home() {
-  const api = useApi();
-  const token = useAtomValue(tokenAtom);
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
-
-  const { data, isFetching } = api.useGetBudgetByIdQuery(
-    import.meta.env.VITE_BUDGET_ID
-  );
-
-  if (isFetching) {
-    return <div>Loading...</div>;
-  }
-  const now = fromUnixTime(Date.now() / 1000);
-  console.log(getMonth(now));
-  console.log(getYear(now));
-  const budget = data!;
-
-  budget.months?.forEach((month) => {
-    console.log(getMonth(parse(month.month, "yyyy-MM-dd", new Date())));
-  });
-
-  return <Box>{budget.name}</Box>;
-}
+import { Routes, Route } from "react-router-dom";
+import { OAuthCallback } from "./components/OAuthCallback";
+import { Authenticate } from "./components/Authenticate";
+import { AuthenticatedRoute } from "./components/AuthenticatedRoute";
+import { format } from "date-fns";
+import { Home } from "./components/Home";
 
 function App() {
   return (

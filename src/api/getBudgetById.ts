@@ -1,9 +1,9 @@
 import { BudgetDetailResponse } from "ynab";
 
-export const getBudgetById = (token: () => string, budgetId: string) =>
+export const getBudgetById = (token: string, budgetId: string) =>
   fetch(`https://api.youneedabudget.com/v1/budgets/${budgetId}`, {
     headers: {
-      Authorization: `Bearer ${token()}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   })

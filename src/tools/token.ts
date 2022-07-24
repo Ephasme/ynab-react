@@ -1,9 +1,7 @@
 import { OAuthResult } from "./OAuthResult";
-import { atomWithStorage } from "jotai/utils";
 import { useLocation } from "react-router-dom";
 import { useSetAtom } from "jotai";
-
-export const tokenAtom = atomWithStorage<string | null>("token", null);
+import { tokenAtom } from "../atoms";
 
 export function useExtractToken() {
   const location = useLocation();
@@ -17,8 +15,6 @@ export function useExtractToken() {
     const { access_token } = OAuthResult.parse(
       JSON.parse('{"' + resultRaw + '"}')
     );
-
-    console.log(access_token);
     setToken(access_token);
   };
 
