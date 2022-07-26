@@ -1,10 +1,11 @@
 import { useAtomValue } from "jotai";
 import { Navigate, Outlet } from "react-router-dom";
-import { tokenAtom } from "../atoms";
+import { expirationAtom, tokenAtom } from "../atoms";
 
 export function AuthenticatedRoute() {
   const token = useAtomValue(tokenAtom);
-  if (!token) {
+  const expiration = useAtomValue(expirationAtom);
+  if (!token || !expiration || expiration < Date.now()) {
     return <Navigate to={"/login"} />;
   }
   return <Outlet />;

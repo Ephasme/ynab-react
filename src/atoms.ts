@@ -5,6 +5,10 @@ import { BudgetDetail } from "ynab";
 import { dateMatches } from "./tools/dateMatches";
 
 export const tokenAtom = atomWithStorage<string | null>("token", null);
+export const expirationAtom = atomWithStorage<number | null>(
+  "expiration",
+  null
+);
 export const budgetDetailsAtom = atom<BudgetDetail | null>(null);
 
 export const selectedMonthAtom = atom<Date>(new Date());

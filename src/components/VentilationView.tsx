@@ -10,17 +10,22 @@ import { useUserSums } from "../hooks/useUserSums";
 import { UserRatio } from "../types";
 
 export const VentilationView = () => {
-  const sums = [
-    useUserSums("👨", "⤵️ Loup", "Loup"),
-    useUserSums("👩", "⤵️ Carole", "Carole"),
+  const INPUT_SYMBOL = "⤵️";
+
+  const userInfo = [
+    useUserSums("👨", `${INPUT_SYMBOL} Loup`, "Loup"),
+    useUserSums("👩", `${INPUT_SYMBOL} Carole`, "Carole"),
   ];
 
-  const totalTransactions = sums.reduce(
+  const totalTransactions = userInfo.reduce(
     (acc, sum) => acc + sum.totalTransactions,
     0
   );
-  const totalBudgeted = sums.reduce((acc, sum) => acc + sum.totalBudgeted, 0);
-  const sumsWithRatios = sums.map((sum): UserRatio => {
+  const totalBudgeted = userInfo.reduce(
+    (acc, sum) => acc + sum.totalBudgeted,
+    0
+  );
+  const userInfoWithRatio = userInfo.map((sum): UserRatio => {
     const ratio = sum.totalTransactions / totalTransactions;
     return { ...sum, ratio };
   });
@@ -38,15 +43,15 @@ export const VentilationView = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {sumsWithRatios.map((person) => (
+        {userInfoWithRatio.map((user) => (
           <TableRow>
-            <TableCell>{person.name}</TableCell>
-            <TableCell>{eur(totalTransactions)}</TableCell>
-            <TableCell>({per(person.ratio)} %)</TableCell>
-            <TableCell>{eur(totalBudgeted * person.ratio)} €</TableCell>
-            <TableCell>{eur(person.totalBudgeted)} €</TableCell>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{eur(user.totalTransactions)}</TableCell>
+            <TableCell>{per(user.ratio)}</TableCell>
+            <TableCell>{eur(totalBudgeted * user.ratio)}</TableCell>
+            <TableCell>{eur(user.totalBudgeted)}</TableCell>
             <TableCell>
-              {eur(totalBudgeted * person.ratio - person.totalBudgeted)} €
+              {eur(totalBudgeted * user.ratio - user.totalBudgeted)}
             </TableCell>
           </TableRow>
         ))}
