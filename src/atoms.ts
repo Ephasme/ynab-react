@@ -9,6 +9,16 @@ export const expirationAtom = atomWithStorage<number | null>(
   "expiration",
   null
 );
+
+export type DefaultCategories = {
+  [key: string]: string;
+};
+export const defaultCategoriesAtom = atomWithStorage<DefaultCategories>(
+  "defaultCategories",
+  {}
+);
+export const idleCategoryAtom = atomWithStorage<string>("idleCategory", "");
+
 export const budgetDetailsAtom = atom<BudgetDetail | null>(null);
 
 export const selectedMonthAtom = atom<Date>(new Date());

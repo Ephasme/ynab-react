@@ -44,7 +44,7 @@ export const VentilationView = () => {
       </TableHead>
       <TableBody>
         {userInfoWithRatio.map((user) => (
-          <TableRow>
+          <TableRow key={user.name}>
             <TableCell>{user.name}</TableCell>
             <TableCell>{eur(user.totalTransactions)}</TableCell>
             <TableCell>{per(user.ratio)}</TableCell>
