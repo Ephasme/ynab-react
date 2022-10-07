@@ -13,7 +13,7 @@ import { UserRatio } from "../types";
 import _ from "lodash";
 import { useUpdateCategory } from "../hooks/useUpdateCategory";
 import { useAtomValue } from "jotai";
-import { defaultCategoriesAtom } from "../atoms";
+import { currentMonthDetailsAtom, defaultCategoriesAtom } from "../atoms";
 import { useBudgetDetails } from "../hooks/useBudgetDetails";
 
 export const VentilationView = () => {
@@ -22,6 +22,7 @@ export const VentilationView = () => {
   const budgetDetails = useBudgetDetails();
   const updateCategory = useUpdateCategory();
   const defaultCategories = useAtomValue(defaultCategoriesAtom);
+  const currentMonth = useAtomValue(currentMonthDetailsAtom);
   const userInfo = [
     useUserSums("👨", `${INPUT_SYMBOL} Loup`, "Loup"),
     useUserSums("👩", `${INPUT_SYMBOL} Carole`, "Carole"),
@@ -57,9 +58,15 @@ export const VentilationView = () => {
       if (!category) {
         throw new Error(`Category ${categoryId} not found`);
       }
+      const budgetedInDefaultCategory = currentMonth?.categories.find(
+        (x) => x.id === categoryId
+      )?.budgeted;
+      if (!budgetedInDefaultCategory) {
+        throw new Error(`Budgeted in default category ${categoryId} not found`);
+      }
       updateCategory.mutate({
         categoryId,
-        budgetedAmount: category.budgeted + diff(user),
+        budgetedAmount: budgetedInDefaultCategory + diff(user),
       });
     }
   };
